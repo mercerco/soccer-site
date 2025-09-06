@@ -401,61 +401,8 @@
 </div>
 
 <script>
-// Simple, dependency-free lightbox
-(function(){
-  const links = Array.from(document.querySelectorAll('a[data-gallery="team"]'));
-  if (!links.length) return;
-
-  const lb = document.getElementById('lightbox');
-  const lbImg = document.getElementById('lbImg');
-  const btnPrev = document.getElementById('lbPrev');
-  const btnNext = document.getElementById('lbNext');
-  const btnClose = document.getElementById('lbClose');
-  let idx = 0;
-
-  function openAt(i){
-    idx = (i + links.length) % links.length;
-    lbImg.src = links[idx].getAttribute('href');
-    lb.classList.add('open');
-  }
-  function close(){ lb.classList.remove('open'); lbImg.src = ''; }
-  function next(){ openAt(idx + 1); }
-  function prev(){ openAt(idx - 1); }
-
-  links.forEach((a, i) => {
-    a.addEventListener('click', (e) => {
-      e.preventDefault();
-      openAt(i);
-    });
-  });
-
-  btnClose.addEventListener('click', close);
-  btnNext.addEventListener('click', next);
-  btnPrev.addEventListener('click', prev);
-
-  // Close on backdrop click (but not when clicking the image or buttons)
-  lb.addEventListener('click', (e) => {
-    if (e.target === lb) close();
-  });
-
-  // Keyboard controls
-  document.addEventListener('keydown', (e) => {
-    if (!lb.classList.contains('open')) return;
-    if (e.key === 'Escape') close();
-    else if (e.key === 'ArrowRight') next();
-    else if (e.key === 'ArrowLeft') prev();
-  });
-})();
-</script>
-<div class="lightbox" id="lightbox" aria-modal="true" role="dialog">
-  <button class="lb-close" id="lbClose" aria-label="Close">✕</button>
-  <button class="lb-btn lb-prev" id="lbPrev" aria-label="Previous">‹</button>
-  <img id="lbImg" alt="">
-  <button class="lb-btn lb-next" id="lbNext" aria-label="Next">›</button>
-</div>
-<script>
 // ====== CONFIG: set these to your GitHub repo ======
-const GH_OWNER  = 'YOUR_GITHUB_USERNAME';  // e.g. 'reneesarno'
+const GH_OWNER  = 'mercerco';  // e.g. 'reneesarno'
 const GH_REPO   = 'soccer-site';           // repo name
 const GH_BRANCH = 'main';                  // 'main' or 'master'
 const PHOTOS_DIR = 'photos';               // folder in repo
