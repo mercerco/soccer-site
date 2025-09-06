@@ -399,6 +399,117 @@
   <img id="lbImg" alt="">
   <button class="lb-btn lb-next" id="lbNext" aria-label="Next">›</button>
 </div>
+<!-- LIVE SNACK IMPORT (Game days only) -->
+<script>
+// 1) CSV endpoints
+const PUBLISHED_CSV_URL =
+  'https://docs.google.com/spreadsheets/d/e/2PACX-1vSm-KZm_RGYjzZOgsUQT1RKcXkdQAmNZ5mYFgo889tELt0jI9oTcwZMj4ifjBARaEhNmFuKEco2Yzwc/pub?gid=0&single=true&output=csv';
+const EDITOR_CSV_URL =
+  'https://docs.google.com/spreadsheets/d/1lBwzSsPPwLKK5iAVljb9kOwr8EX5wlO8MJsrjKBTxIE/export?format=csv&gid=0';
+
+// 2) Collect ISO dates of all games from the calendar (#YYYY-MM-DD)
+function getGameDates(){
+  return new Set(
+    Array.from(document.querySelectorAll('.cal .badge.game[href^="#"]'))
+      .map(a => a.getAttribute('href').slice(1))
+  );
+}
+
+// 3) Tiny CSV parser (supports quotes & commas)
+function parseCSV(str){
+  const rows = []; let row = [], field = '', i = 0, inQ = false;
+  while (i < str.length){
+    const c = str[i++];
+    if (inQ){
+      if (c === '"'){ if (str[i] === '"'){ field += '"'; i++; } else { inQ = false; } }
+      else { field += c; }
+    } else {
+      if (c === '"') inQ = true;
+      else if (c === ','){ row.push(field); field=''; }
+      else if (c === '\n'){ row.push(field); rows.push(row); row=[]; field=''; }
+      else if (c !== '\r'){ field += c; }
+    }
+  }
+  if (field.length || row.length) { row.push(field); rows.push(row); }
+  return rows;
+}
+
+// 4) Accept MM-DD-YYYY or YYYY-MM-DD and return YYYY-MM-DD
+function toISO(s){
+  s = String(s||'').trim();
+  let m = s.match(/^(\d{2})-(\d{2})-(\d{4})$/); // MM-DD-YYYY
+  if (m) return `${m[3]}-${m[1]}-${m[2]}`;
+  m = s.match(/^(\d{4})-(\d{2})-(\d{2})$/);     // YYYY-MM-DD
+  if (m) return s;
+  return null;
+}
+
+// 5) Write “Snack: …” onto calendar game cells and matching detail cards
+function applySnacks(isoToSnack){
+  // Calendar cells
+  document.querySelectorAll('.cal .cell .badge.game[href^="#"]').forEach(a => {
+    const iso = a.getAttribute('href').slice(1);
+    const cell = a.closest('.cell');
+    cell.querySelectorAll('.snack').forEach(n => n.remove()); // clear old
+    const snack = (isoToSnack[iso] || '').trim();
+    if (!snack) return;
+    const line = document.createElement('div');
+    line.className = 'snack';
+    line.innerHTML = `<b>Snack:</b> ${snack}`;
+    cell.appendChild(line);
+  });
+
+  // Detail cards
+  Object.entries(isoToSnack).forEach(([iso, snack]) => {
+    const card = document.getElementById(iso);
+    if (!card || !(snack||'').trim()) return;
+    card.querySelectorAll('.snack').forEach(n => n.remove());
+    const line = document.createElement('div');
+    line.className = 'snack';
+    line.innerHTML = `<b>Snack:</b> ${snack}`;
+    card.appendChild(line);
+  });
+}
+
+// 6) Fetch helper (with cache-buster)
+async function fetchCSV(url){
+  const res = await fetch(url + (url.includes('?') ? '&' : '?') + '_=' + Date.now(), { cache:'no-store' });
+  if (!res.ok) throw new Error('CSV fetch failed: ' + res.status);
+  return await res.text();
+}
+
+// 7) Main
+async function loadSnacks(){
+  const gameDates = getGameDates();
+  if (!gameDates.size) return;
+
+  let csvText = null;
+  try { csvText = await fetchCSV(EDITOR_CSV_URL); }
+  catch { try { csvText = await fetchCSV(PUBLISHED_CSV_URL); } catch(e){ console.warn(e); } }
+  if (!csvText) return;
+
+  const rows = parseCSV(csvText);
+  if (!rows.length) return;
+
+  const headers = rows[0].map(h => String(h||'').trim().toLowerCase());
+  const iDate   = headers.indexOf('date');
+  const iSnacks = headers.indexOf('snacks');
+  if (iDate === -1 || iSnacks === -1) { console.warn('Missing Date or Snacks header'); return; }
+
+  const isoToSnack = {};
+  for (let r = 1; r < rows.length; r++){
+    const row = rows[r]; if (!row || row.length < Math.max(iDate, iSnacks)+1) continue;
+    const iso = toISO(row[iDate]);
+    const snack = (row[iSnacks] || '').trim();
+    if (!iso || !snack) continue;
+    if (gameDates.has(iso)) isoToSnack[iso] = snack;
+  }
+
+  applySnacks(isoToSnack);
+}
+
+document.addEventListener('DOMContentLoaded', loadSnacks);
+</script>
 
 <script>
 // ====== CONFIG: set these to your GitHub repo ======
