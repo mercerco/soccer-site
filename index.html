@@ -1,131 +1,494 @@
-<html><head><meta charset='utf-8'><title>Fall 2025 Pre-K Boy Soccer Season Calendar</title>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Fall 2025 Pre-K Boys Soccer Calendar</title>
 <style>
-body { font-family: Arial, sans-serif; margin: 24px; }
-h1 { margin-bottom: 6px; }
-.notice { background:#fff8d8; border:1px solid #f0d77a; padding:10px 12px; border-radius:8px; margin:10px 0 20px; }
-.notice a { font-weight:bold; color:#a15a00; text-decoration:none; }
-.container { display: grid; grid-template-columns: 1fr 300px; gap: 24px; }
-.calwrap { }
-.sidebar { position: sticky; top: 12px; height: fit-content; border: 1px solid #ddd; border-radius: 8px; padding: 10px; }
-.cal { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
-.cell { border: 1px solid #ddd; min-height: 90px; padding: 6px; border-radius: 6px; position: relative; }
-.cell .date { position: absolute; top: 6px; right: 8px; font-size: 12px; color: #666; }
-.head { font-weight: bold; text-align: center; background: #f5f5f5; border: 1px solid #ddd; padding: 6px; border-radius: 6px; }
-.pill { margin-top: 22px; }
-a.badge { display: inline-block; padding: 4px 8px; border-radius: 10px; font-size: 12px; font-weight: bold; text-decoration: none; border:1px solid; }
-a.practice { background:#e7fff5; color:#0a7; border-color:#0a7; }
-a.game { background:#fff3e7; color:#a50; border-color:#a50; }
-.note { color:#666; font-size:12px; margin-top: 28px; }
-.legend span { display: inline-block; margin-right: 12px; }
-.legend .chip { padding: 4px 8px; border-radius: 10px; border:1px solid #ccc; background:#f6f6f6; font-size: 12px; }
-.section { margin-top: 24px; padding-top: 6px; border-top: 2px solid #eee; }
-.card { border: 1px solid #ddd; border-radius: 8px; padding: 12px; margin: 10px 0; }
-.card h3 { margin: 0 0 6px 0; }
-.small { color:#666; font-size:12px; }
-.diagrams img { height: 80px; margin-right: 6px; border: 1px solid #ddd; border-radius: 4px; }
-ul { margin: 6px 0 6px 18px; }
-.snack { margin-top: 6px; font-size: 12px; color: #0a7; font-weight: 600; }
-.snack b { color:#444; font-weight:600; margin-right:4px; }
+  :root { --border:#ddd; --muted:#666; --bg:#f5f5f5; --game:#a50; --gamebg:#fff3e7; --practice:#0a7; --practicebg:#e7fff5; }
+  body { font-family: Arial, sans-serif; margin: 24px; }
+  h1 { margin-bottom: 6px; }
+  .notice { background:#fff8d8; border:1px solid #f0d77a; padding:10px 12px; border-radius:8px; margin:10px 0 20px; }
+  .notice a { font-weight:bold; color:#a15a00; text-decoration:none; }
+  .legend { font-size:12px; color:var(--muted); margin-bottom:10px; }
+  .container { display:grid; grid-template-columns: 1fr 360px; gap:24px; align-items:start; }
+  @media (max-width: 960px){ .container{ grid-template-columns: 1fr; } }
+  .calwrap { }
+  .cal { display:grid; grid-template-columns: repeat(7, 1fr); gap:6px; }
+  .cell { border:1px solid var(--border); min-height:90px; padding:6px; border-radius:6px; position:relative; background:#fff; }
+  .cell .date { position:absolute; top:6px; right:8px; font-size:12px; color:var(--muted); }
+  .head { font-weight:bold; text-align:center; background:var(--bg); border:1px solid var(--border); padding:6px; border-radius:6px; }
+  .pill { margin-top:22px; }
+  a.badge { display:inline-block; padding:4px 8px; border-radius:10px; font-size:12px; font-weight:bold; text-decoration:none; border:1px solid; }
+  a.practice { background:var(--practicebg); color:var(--practice); border-color:var(--practice); }
+  a.game { background:var(--gamebg); color:var(--game); border-color:var(--game); }
+  .note { color:var(--muted); font-size:12px; margin-top:28px; }
+  .section { margin-top:24px; padding-top:6px; border-top:2px solid #eee; }
+  .card { border:1px solid var(--border); border-radius:8px; padding:12px; margin:10px 0; background:#fff; }
+  .card h3 { margin:0 0 6px 0; }
+  .small { color:var(--muted); font-size:12px; }
+  .diagrams img { height:80px; margin-right:6px; border:1px solid var(--border); border-radius:4px; }
+  ul { margin:6px 0 6px 18px; }
+  /* Snacks line */
+  .snack { margin-top:6px; font-size:12px; color:var(--practice); font-weight:600; }
+  .snack b { color:#444; font-weight:600; margin-right:4px; }
+
+  <aside class="sidebar">
+  <h2>📸 Team Photos</h2>
+  <div class="gallery-grid">
+    <!-- Each item links to the big image; the <img> shows the thumb -->
+    <a href="photos/01.jpg" data-gallery="team"><img src="photos/01.jpg" alt="Team photo 1"></a>
+    <a href="photos/02.jpg" data-gallery="team"><img src="photos/02.jpg" alt="Team photo 2"></a>
+    <a href="photos/03.jpg" data-gallery="team"><img src="photos/03.jpg" alt="Team photo 3"></a>
+  </div>
+
+  <div class="helper">Add images to the <code>/photos</code> folder and update this list as needed.</div>
+
+  <!-- (Optional) keep your Snacks section here -->
+  <!-- ... your snacks iframe ... -->
+</aside>
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+.gallery-grid img {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  display: block;
+}
+
+/* Lightbox overlay */
+.lightbox {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.8);
+  display: none;
+  align-items: center; justify-content: center;
+  z-index: 9999;
+}
+.lightbox.open { display: flex; }
+.lightbox img {
+  max-width: 90vw; max-height: 85vh; border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+.lb-btn {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  background: rgba(255,255,255,0.9);
+  border: 1px solid #ccc; border-radius: 999px;
+  width: 40px; height: 40px; display: grid; place-items: center;
+  font-weight: bold; cursor: pointer; user-select: none;
+}
+.lb-prev { left: 16px; }
+.lb-next { right: 16px; }
+.lb-close {
+  position: absolute; top: 12px; right: 12px;
+  background: rgba(255,255,255,0.9);
+  border: 1px solid #ccc; border-radius: 999px;
+  width: 36px; height: 36px; display: grid; place-items: center;
+  font-weight: bold; cursor: pointer;
+}
 
 </style>
-</head><body><h1>⚽ 2025 Fall Pre-K Boys Soccer Calendar </h1><div class='notice'>📋 <strong>Snack &amp; Volunteer Sign-Up (Google Sheet)</strong> — <a href='https://docs.google.com/spreadsheets/d/1lBwzSsPPwLKK5iAVljb9kOwr8EX5wlO8MJsrjKBTxIE/edit?usp=sharing' target='_blank' rel='noopener'> Sign up here </a></div><div class='legend'><span class='chip'>Click badges to jump to the day's plan</span></div><div class='container'><div class='calwrap'><h2>September 2025</h2><div class='cal'><div class='head'>Sun</div><div class='head'>Mon</div><div class='head'>Tue</div><div class='head'>Wed</div><div class='head'>Thu</div><div class='head'>Fri</div><div class='head'>Sat</div><div class='cell'></div><div class='cell'><span class='date'>1</span></div><div class='cell'><span class='date'>2</span></div><div class='cell'><span class='date'>3</span></div><div class='cell'><span class='date'>4</span></div><div class='cell'><span class='date'>5</span></div><div class='cell'><span class='date'>6</span></div><div class='cell'><span class='date'>7</span></div><div class='cell'><span class='date'>8</span></div><div class='cell'><span class='date'>9</span></div><div class='cell'><span class='date'>10</span></div><div class='cell'><span class='date'>11</span></div><div class='cell'><span class='date'>12</span></div><div class='cell'><span class='date'>13</span></div><div class='cell'><span class='date'>14</span></div><div class='cell'><span class='date'>15</span></div><div class='cell'><span class='date'>16</span></div><div class='cell'><span class='date'>17</span></div><div class='cell'><span class='date'>18</span></div><div class='cell'><span class='date'>19</span><div class='pill'><a class='badge practice' href='#2025-09-19'>Practice</a></div></div><div class='cell'><span class='date'>20</span></div><div class='cell'><span class='date'>21</span></div><div class='cell'><span class='date'>22</span></div><div class='cell'><span class='date'>23</span></div><div class='cell'><span class='date'>24</span></div><div class='cell'><span class='date'>25</span></div><div class='cell'><span class='date'>26</span><div class='pill'><a class='badge practice' href='#2025-09-26'>Practice</a></div></div><div class='cell'><span class='date'>27</span><div class='pill'><a class='badge game' href='#2025-09-27'>Game</a></div></div><div class='cell'><span class='date'>28</span></div><div class='cell'><span class='date'>29</span></div><div class='cell'><span class='date'>30</span></div></div><h2>October 2025</h2><div class='cal'><div class='head'>Sun</div><div class='head'>Mon</div><div class='head'>Tue</div><div class='head'>Wed</div><div class='head'>Thu</div><div class='head'>Fri</div><div class='head'>Sat</div><div class='cell'></div><div class='cell'></div><div class='cell'></div><div class='cell'><span class='date'>1</span></div><div class='cell'><span class='date'>2</span></div><div class='cell'><span class='date'>3</span><div class='pill'><a class='badge practice' href='#2025-10-03'>Practice</a></div></div><div class='cell'><span class='date'>4</span><div class='pill'><a class='badge game' href='#2025-10-04'>Game</a></div></div><div class='cell'><span class='date'>5</span></div><div class='cell'><span class='date'>6</span><div class='note'>Fall Break (No Practice/Game)</div></div><div class='cell'><span class='date'>7</span></div><div class='cell'><span class='date'>8</span></div><div class='cell'><span class='date'>9</span></div><div class='cell'><span class='date'>10</span></div><div class='cell'><span class='date'>11</span></div><div class='cell'><span class='date'>12</span></div><div class='cell'><span class='date'>13</span></div><div class='cell'><span class='date'>14</span></div><div class='cell'><span class='date'>15</span></div><div class='cell'><span class='date'>16</span></div><div class='cell'><span class='date'>17</span><div class='pill'><a class='badge practice' href='#2025-10-17'>Practice</a></div></div><div class='cell'><span class='date'>18</span><div class='pill'><a class='badge game' href='#2025-10-18'>Game</a></div></div><div class='cell'><span class='date'>19</span></div><div class='cell'><span class='date'>20</span></div><div class='cell'><span class='date'>21</span></div><div class='cell'><span class='date'>22</span></div><div class='cell'><span class='date'>23</span></div><div class='cell'><span class='date'>24</span><div class='pill'><a class='badge practice' href='#2025-10-24'>Practice</a></div></div><div class='cell'><span class='date'>25</span><div class='pill'><a class='badge game' href='#2025-10-25'>Game</a></div></div><div class='cell'><span class='date'>26</span></div><div class='cell'><span class='date'>27</span></div><div class='cell'><span class='date'>28</span></div><div class='cell'><span class='date'>29</span></div><div class='cell'><span class='date'>30</span></div><div class='cell'><span class='date'>31</span><div class='pill'><a class='badge practice' href='#2025-10-31'>Practice</a></div></div></div><h2>November 2025</h2><div class='cal'><div class='head'>Sun</div><div class='head'>Mon</div><div class='head'>Tue</div><div class='head'>Wed</div><div class='head'>Thu</div><div class='head'>Fri</div><div class='head'>Sat</div><div class='cell'></div><div class='cell'></div><div class='cell'></div><div class='cell'></div><div class='cell'></div><div class='cell'></div><div class='cell'><span class='date'>1</span><div class='pill'><a class='badge game' href='#2025-11-01'>Game</a></div></div><div class='cell'><span class='date'>2</span></div><div class='cell'><span class='date'>3</span></div><div class='cell'><span class='date'>4</span></div><div class='cell'><span class='date'>5</span></div><div class='cell'><span class='date'>6</span></div><div class='cell'><span class='date'>7</span><div class='pill'><a class='badge practice' href='#2025-11-07'>Practice</a></div></div><div class='cell'><span class='date'>8</span><div class='pill'><a class='badge game' href='#2025-11-08'>Game</a></div></div><div class='cell'><span class='date'>9</span></div><div class='cell'><span class='date'>10</span></div><div class='cell'><span class='date'>11</span></div><div class='cell'><span class='date'>12</span></div><div class='cell'><span class='date'>13</span></div><div class='cell'><span class='date'>14</span><div class='pill'><a class='badge practice' href='#2025-11-14'>Practice</a></div></div><div class='cell'><span class='date'>15</span><div class='pill'><a class='badge game' href='#2025-11-15'>Game</a></div></div><div class='cell'><span class='date'>16</span></div><div class='cell'><span class='date'>17</span></div><div class='cell'><span class='date'>18</span></div><div class='cell'><span class='date'>19</span></div><div class='cell'><span class='date'>20</span></div><div class='cell'><span class='date'>21</span><div class='pill'><a class='badge practice' href='#2025-11-21'>Practice</a></div></div><div class='cell'><span class='date'>22</span><div class='pill'><a class='badge game' href='#2025-11-22'>Game</a></div></div><div class='cell'><span class='date'>23</span></div><div class='cell'><span class='date'>24</span><div class='note'>Thanksgiving Break (No Practice/Game)</div></div><div class='cell'><span class='date'>25</span></div><div class='cell'><span class='date'>26</span></div><div class='cell'><span class='date'>27</span></div><div class='cell'><span class='date'>28</span></div><div class='cell'><span class='date'>29</span></div><div class='cell'><span class='date'>30</span></div></div><h2>December 2025</h2><div class='cal'><div class='head'>Sun</div><div class='head'>Mon</div><div class='head'>Tue</div><div class='head'>Wed</div><div class='head'>Thu</div><div class='head'>Fri</div><div class='head'>Sat</div><div class='cell'></div><div class='cell'><span class='date'>1</span></div><div class='cell'><span class='date'>2</span></div><div class='cell'><span class='date'>3</span></div><div class='cell'><span class='date'>4</span></div><div class='cell'><span class='date'>5</span><div class='pill'><a class='badge practice' href='#2025-12-05'>Practice</a></div></div><div class='cell'><span class='date'>6</span><div class='pill'><a class='badge game' href='#2025-12-06'>Game</a></div></div><div class='cell'><span class='date'>7</span></div><div class='cell'><span class='date'>8</span></div><div class='cell'><span class='date'>9</span></div><div class='cell'><span class='date'>10</span></div><div class='cell'><span class='date'>11</span></div><div class='cell'><span class='date'>12</span></div><div class='cell'><span class='date'>13</span></div><div class='cell'><span class='date'>14</span></div><div class='cell'><span class='date'>15</span></div><div class='cell'><span class='date'>16</span></div><div class='cell'><span class='date'>17</span></div><div class='cell'><span class='date'>18</span></div><div class='cell'><span class='date'>19</span></div><div class='cell'><span class='date'>20</span></div><div class='cell'><span class='date'>21</span></div><div class='cell'><span class='date'>22</span></div><div class='cell'><span class='date'>23</span></div><div class='cell'><span class='date'>24</span></div><div class='cell'><span class='date'>25</span></div><div class='cell'><span class='date'>26</span></div><div class='cell'><span class='date'>27</span></div><div class='cell'><span class='date'>28</span></div><div class='cell'><span class='date'>29</span></div><div class='cell'><span class='date'>30</span></div><div class='cell'><span class='date'>31</span></div></div></div><div class='sidebar'><strong>Quick Jump</strong><ul><li><a href='#2025-09-19'>Preseason Practice – Sept 19</a></li><li><a href='#2025-09-26'>Week 1 Practice – Sept 26 (Game Sept 27)</a></li><li><a href='#2025-09-27'>Game 1 – Sept 27</a></li><li><a href='#2025-10-03'>Week 2 Practice – Oct 3 (Game Oct 4)</a></li><li><a href='#2025-10-04'>Game 2 – Oct 4</a></li><li>Fall Break (No Practice/Game)</li><li><a href='#2025-10-17'>Week 3 Practice – Oct 17 (Game Oct 18)</a></li><li><a href='#2025-10-18'>Game – Oct 18</a></li><li><a href='#2025-10-24'>Week 4 Practice – Oct 24 (Game Oct 25)</a></li><li><a href='#2025-10-25'>Game – Oct 25</a></li><li><a href='#2025-10-31'>Week 5 Practice – Oct 31 (Game Nov 1) 🎃 Halloween Fun</a></li><li><a href='#2025-11-01'>Game – Nov 1</a></li><li><a href='#2025-11-07'>Week 6 Practice – Nov 7 (Game Nov 8)</a></li><li><a href='#2025-11-08'>Game – Nov 8</a></li><li><a href='#2025-11-14'>Week 7 Practice – Nov 14 (Game Nov 15)</a></li><li><a href='#2025-11-15'>Game – Nov 15</a></li><li><a href='#2025-11-21'>Week 8 Practice – Nov 21 (Game Nov 22)</a></li><li><a href='#2025-11-22'>Game – Nov 22</a></li><li>Thanksgiving Break (No Practice/Game)</li><li><a href='#2025-12-05'>Week 9 Practice – Dec 5 (Game Dec 6)</a></li><li><a href='#2025-12-06'>Game – Dec 6</a></li></ul></div></div>
-<div class='section' id='snacks'>
-  <h2>Snacks & Volunteers</h2>
-  <p>Below is our team snack &amp; volunteer schedule. Use the <em>Sign up Here</em> link above to add your name.</p>
-  <iframe src="https://docs.google.com/spreadsheets/d/1lBwzSsPPwLKK5iAVljb9kOwr8EX5wlO8MJsrjKBTxIE/edit?usp=sharing" width="100%" height="500" frameborder="0"></iframe>
-</div>
-<div class='section'><h2>Practice & Game Details</h2><div class='card' id='2025-09-19'><h3><span class='small'>[Practice]</span> Preseason Practice – Sept 19</h3><div class='small'><em>Focus: Meeting teammates, basic ball comfort</em></div><div><strong>Activities</strong><ul><li><strong>Warm-up: Animal Tag (5 min)</strong> — Run like animals while staying in the field box.</li><li><strong>Dribbling: Red Light/Green Light (8 min)</strong> — Dribble on green, stop on red, slow on yellow.</li><li><strong>Dribbling: Follow the Leader (8 min)</strong> — Copy coach turns, stops, and pace.</li><li><strong>Shooting: Monster in Goal (8 min)</strong> — Score past the silly monster coach.</li><li><strong>Scrimmage: 3v3 free play (10 min)</strong> — Small game—lots of touches.</li><li><strong>Cheer & stickers (2–3 min)</strong> — End happy and proud.</li></ul></div><div><strong>Required Equipment</strong><ul><li>Balls (1/player)</li><li>Cones</li><li>Goal</li></ul></div><div class='diagrams'></div></div><div class='card' id='2025-09-26'><h3><span class='small'>[Practice]</span> Week 1 Practice – Sept 26 (Game Sept 27)</h3><div class='small'><em>Focus: Starting/stopping, control</em></div><div><strong>Activities</strong><ul><li><strong>Warm-up: Lava Islands (5 min)</strong> — Run/jump between cone 'islands'.</li><li><strong>Dribbling: Red Light/Green Light + Yellow (8 min)</strong> — Add slow 'yellow' speed control.</li><li><strong>Dribbling: Treasure Hunt (8 min)</strong> — Stop ball at each 'treasure' cone.</li><li><strong>Shooting: Cannon Fire (8 min)</strong> — Rapid shots into the goal.</li><li><strong>Scrimmage (10 min)</strong> — Let them play.</li><li><strong>Cheer (2 min)</strong> — Quick huddle and cheer.</li></ul></div><div><strong>Required Equipment</strong><ul><li>Balls</li><li>Cones</li><li>Goal</li></ul></div><div class='diagrams'></div></div><div class='card' id='2025-09-27'><h3><span class='small'>[Game]</span> Game 1 – Sept 27</h3><div class='small'><em>Go have fun! Lots of subs and smiles.</em></div></div><div class='card' id='2025-10-03'><h3><span class='small'>[Practice]</span> Week 2 Practice – Oct 3 (Game Oct 4)</h3><div class='small'><em>Focus: Awareness, keeping ball close</em></div><div><strong>Activities</strong><ul><li><strong>Warm-up: Freeze Tag (5 min)</strong> — Taggers freeze, teammates unfreeze.</li><li><strong>Dribbling: Sharks and Minnows (8 min)</strong> — Protect ball from sharks.</li><li><strong>Dribbling: Knock-the-Cone (8 min)</strong> — Dribble close and tap cones down.</li><li><strong>Shooting: Kick the Coach (8 min)</strong> — Pass/shot to coach's feet.</li><li><strong>Scrimmage (10 min)</strong> — Free play.</li><li><strong>Cheer (2 min)</strong> — Team chant.</li></ul></div><div><strong>Required Equipment</strong><ul><li>Balls</li><li>Cones</li><li>Goal</li></ul></div><div class='diagrams'></div></div><div class='card' id='2025-10-04'><h3><span class='small'>[Game]</span> Game 2 – Oct 4</h3><div class='small'><em>Go have fun! Rotate often.</em></div></div><div class='card' id='2025-10-06'><h3><span class='small'>[Break]</span> Fall Break (No Practice/Game)</h3><div class='small'><em>No activities Oct 6–12.</em></div></div><div class='card' id='2025-10-17'><h3><span class='small'>[Practice]</span> Week 3 Practice – Oct 17 (Game Oct 18)</h3><div class='small'><em>Focus: Control in space, simple shooting</em></div><div><strong>Activities</strong><ul><li><strong>Warm-up: Animal Races (5 min)</strong> — Pick an animal and move like it.</li><li><strong>Dribbling: Treasure Hunt (8 min)</strong> — Stop ball at cones.</li><li><strong>Dribbling: Traffic Jam (8 min)</strong> — Control in a crowded grid.</li><li><strong>Shooting: Monster in Goal (8 min)</strong> — Score vs monster coach.</li><li><strong>Scrimmage (10 min)</strong> — Free play.</li><li><strong>Cheer (2 min)</strong> — Team chant.</li></ul></div><div><strong>Required Equipment</strong><ul><li>Balls</li><li>Cones</li><li>Goal</li></ul></div><div class='diagrams'></div></div><div class='card' id='2025-10-18'><h3><span class='small'>[Game]</span> Game – Oct 18</h3><div class='small'><em>Go have fun!</em></div></div><div class='card' id='2025-10-24'><h3><span class='small'>[Practice]</span> Week 4 Practice – Oct 24 (Game Oct 25)</h3><div class='small'><em>Focus: Intro to passing to a partner</em></div><div><strong>Activities</strong><ul><li><strong>Warm-up: Chase the Coach (5 min)</strong> — Tag the coach safely.</li><li><strong>Passing: Gate Passing (8 min)</strong> — Pass through cone gates.</li><li><strong>Passing: Kick the Coach (8 min)</strong> — Aim to coach's feet.</li><li><strong>Shooting: Cannon Fire (8 min)</strong> — Quick finishing.</li><li><strong>Scrimmage (10 min)</strong> — Free play.</li><li><strong>Cheer (2 min)</strong> — Team chant.</li></ul></div><div><strong>Required Equipment</strong><ul><li>Balls</li><li>Cones (for gates)</li><li>Goal</li></ul></div><div class='diagrams'></div></div><div class='card' id='2025-10-25'><h3><span class='small'>[Game]</span> Game – Oct 25</h3><div class='small'><em>Go have fun!</em></div></div><div class='card' id='2025-10-31'><h3><span class='small'>[Practice]</span> Week 5 Practice – Oct 31 (Game Nov 1) 🎃 Halloween Fun</h3><div class='small'><em>Focus: Dribbling, passing, and shooting with a Halloween twist</em></div><div><strong>Activities</strong><ul><li><strong>Pumpkin Patch Relay (5 min)</strong> — Each player dribbles their 'pumpkin' (ball) to a cone in the patch and back.</li><li><strong>Trick-or-Treat Houses (8 min)</strong> — Cones are 'houses.' Stop ball, shout 'Trick or treat!' then go to the next.</li><li><strong>Ghost Gates (8 min)</strong> — Pass through cone 'ghosts' to scare them away.</li><li><strong>Monster Knockdown (8 min)</strong> — Shoot to knock down 'monster' cones. Coach can be a silly zombie goalie.</li><li><strong>Costume Match Scrimmage (10 min)</strong> — Play as witches, bats, or pumpkins. Team 'pumpkins' vs 'bats' if using pinnies.</li><li><strong>'BOO!' Team Huddle (2 min)</strong> — Big 'BOO!' and Halloween sticker/glow stick.</li></ul></div><div><strong>Required Equipment</strong><ul><li>Balls (1/player)</li><li>Cones (houses, gates, monsters)</li><li>Goal</li><li>Optional Halloween props (pumpkin bucket, spider rings, glow sticks, silly hat)</li></ul></div><div class='diagrams'></div></div><div class='card' id='2025-11-01'><h3><span class='small'>[Game]</span> Game – Nov 1</h3><div class='small'><em>Go have fun!</em></div></div><div class='card' id='2025-11-07'><h3><span class='small'>[Practice]</span> Week 6 Practice – Nov 7 (Game Nov 8)</h3><div class='small'><em>Focus: Sharing the ball, cheering each other</em></div><div><strong>Activities</strong><ul><li><strong>Warm-up: Simon Says (5 min)</strong> — Listen and move with the ball.</li><li><strong>Dribbling: Traffic Jam (8 min)</strong> — Control in tight space.</li><li><strong>Passing: Partner Pass (8 min)</strong> — Short passes and move.</li><li><strong>Shooting: Team Cannon Fire (8 min)</strong> — Shoot in sequence, cheer teammates.</li><li><strong>Scrimmage (10 min)</strong> — Free play.</li><li><strong>Cheer (2 min)</strong> — Team chant.</li></ul></div><div><strong>Required Equipment</strong><ul><li>Balls</li><li>Cones</li><li>Goal</li><li>Pinnies (optional)</li></ul></div><div class='diagrams'></div></div><div class='card' id='2025-11-08'><h3><span class='small'>[Game]</span> Game – Nov 8</h3><div class='small'><em>Go have fun!</em></div></div><div class='card' id='2025-11-14'><h3><span class='small'>[Practice]</span> Week 7 Practice – Nov 14 (Game Nov 15)</h3><div class='small'><em>Focus: Repetition of favorites, mastery</em></div><div><strong>Activities</strong><ul><li><strong>Warm-up: Animal Tag (5 min)</strong> — Tag while moving like animals.</li><li><strong>Dribbling: Red Light/Green Light (8 min)</strong> — Control ball on stop/start.</li><li><strong>Passing: Gate Passing (8 min)</strong> — Simple accuracy.</li><li><strong>Shooting: Monster in Goal (8 min)</strong> — Score vs monster coach.</li><li><strong>Scrimmage (10 min)</strong> — Free play.</li><li><strong>Cheer (2 min)</strong> — Team chant.</li></ul></div><div><strong>Required Equipment</strong><ul><li>Balls</li><li>Cones</li><li>Goal</li></ul></div><div class='diagrams'></div></div><div class='card' id='2025-11-15'><h3><span class='small'>[Game]</span> Game – Nov 15</h3><div class='small'><em>Go have fun!</em></div></div><div class='card' id='2025-11-21'><h3><span class='small'>[Practice]</span> Week 8 Practice – Nov 21 (Game Nov 22)</h3><div class='small'><em>Focus: Fun & variety</em></div><div><strong>Activities</strong><ul><li><strong>Warm-up: Color Chaos (5 min)</strong> — Dribble to called colors.</li><li><strong>Dribbling: Treasure Hunt (8 min)</strong> — Stop at 'treasures'.</li><li><strong>Passing: Buddy Gates (8 min)</strong> — Work in pairs through gates.</li><li><strong>Shooting: Cannon Fire (8 min)</strong> — Quick finishing.</li><li><strong>Scrimmage: Mini World Cup (10 min)</strong> — Quick games with frequent subs.</li><li><strong>Cheer (2 min)</strong> — Team chant.</li></ul></div><div><strong>Required Equipment</strong><ul><li>Balls</li><li>Colored cones</li><li>Goal</li><li>Pinnies</li></ul></div><div class='diagrams'></div></div><div class='card' id='2025-11-22'><h3><span class='small'>[Game]</span> Game – Nov 22</h3><div class='small'><em>Go have fun!</em></div></div><div class='card' id='2025-11-24'><h3><span class='small'>[Break]</span> Thanksgiving Break (No Practice/Game)</h3><div class='small'><em>No activities Nov 24–30.</em></div></div><div class='card' id='2025-12-05'><h3><span class='small'>[Practice]</span> Week 9 Practice – Dec 5 (Game Dec 6)</h3><div class='small'><em>Focus: Fun & favorites, end-of-season celebration</em></div><div><strong>Activities</strong><ul><li><strong>Warm-up: Silly Tag (5 min)</strong> — Laugh and move together.</li><li><strong>Dribbling: Kids’ Choice Drill (8 min)</strong> — Pick a favorite dribbling game.</li><li><strong>Passing: Kids’ Choice Drill (8 min)</strong> — Pick a favorite passing game.</li><li><strong>Shooting: Rapid Fire (8 min)</strong> — Everyone shoots quickly.</li><li><strong>Scrimmage: Parents vs Kids (10 min)</strong> — Kids always win 😄</li><li><strong>Awards & Cheer (3–5 min)</strong> — Stickers/medals & team chant.</li></ul></div><div><strong>Required Equipment</strong><ul><li>Balls</li><li>Cones</li><li>Goal</li><li>Awards (stickers, medals)</li></ul></div><div class='diagrams'></div></div><div class='card' id='2025-12-06'><h3><span class='small'>[Game]</span> Game – Dec 6</h3><div class='small'><em>Final game — have a blast!</em></div></div></div>
-<script>
+</head>
 
-const CSV_URL = 'https://docs.google.com/spreadsheets/d/1lBwzSsPPwLKK5iAVljb9kOwr8EX5wlO8MJsrjKBTxIE/export?format=csv&gid=0';
-function getGameDates(){
-  return new Set(
-    Array.from(document.querySelectorAll('.cal .badge.game[href^="#"]'))
-      .map(a => a.getAttribute('href').slice(1)) // "#YYYY-MM-DD" -> "YYYY-MM-DD"
-  );
-}
-function parseCSV(str){
-  const rows = []; let row = [], field = '', i = 0, inQ = false;
-  while (i < str.length){
-    const c = str[i++];
-    if (inQ){
-      if (c === '"'){ if (str[i] === '"'){ field += '"'; i++; } else { inQ = false; } }
-      else { field += c; }
-    } else {
-      if (c === '"') inQ = true;
-      else if (c === ','){ row.push(field); field=''; }
-      else if (c === '\n'){ row.push(field); rows.push(row); row=[]; field=''; }
-      else if (c !== '\r'){ field += c; }
-    }
+<body>
+  <h1>⚽ 2025 Fall Pre-K Boys Soccer Calendar</h1>
+
+  <div class="notice">
+    📋 <strong>Snack &amp; Volunteer Sign-Up (Google Sheet)</strong> —
+    <a href="https://docs.google.com/spreadsheets/d/1lBwzSsPPwLKK5iAVljb9kOwr8EX5wlO8MJsrjKBTxIE/edit?usp=sharing" target="_blank" rel="noopener">Sign up here</a>
+  </div>
+
+  <div class="legend">Game snacks will appear automatically on the calendar as families add names in the sheet.</div>
+
+  <div class="container">
+    <!-- LEFT: Calendar -->
+    <div class="calwrap">
+      <h2>September 2025</h2>
+      <div class="cal">
+        <div class="head">Sun</div><div class="head">Mon</div><div class="head">Tue</div><div class="head">Wed</div><div class="head">Thu</div><div class="head">Fri</div><div class="head">Sat</div>
+        <div class="cell"></div>
+        <div class="cell"><span class="date">1</span></div>
+        <div class="cell"><span class="date">2</span></div>
+        <div class="cell"><span class="date">3</span></div>
+        <div class="cell"><span class="date">4</span></div>
+        <div class="cell"><span class="date">5</span></div>
+        <div class="cell"><span class="date">6</span></div>
+        <div class="cell"><span class="date">7</span></div>
+        <div class="cell"><span class="date">8</span></div>
+        <div class="cell"><span class="date">9</span></div>
+        <div class="cell"><span class="date">10</span></div>
+        <div class="cell"><span class="date">11</span></div>
+        <div class="cell"><span class="date">12</span></div>
+        <div class="cell"><span class="date">13</span></div>
+        <div class="cell"><span class="date">14</span></div>
+        <div class="cell"><span class="date">15</span></div>
+        <div class="cell"><span class="date">16</span></div>
+        <div class="cell"><span class="date">17</span></div>
+        <div class="cell"><span class="date">18</span></div>
+        <div class="cell"><span class="date">19</span><div class="pill"><a class="badge practice" href="#2025-09-19">Practice</a></div></div>
+        <div class="cell"><span class="date">20</span></div>
+        <div class="cell"><span class="date">21</span></div>
+        <div class="cell"><span class="date">22</span></div>
+        <div class="cell"><span class="date">23</span></div>
+        <div class="cell"><span class="date">24</span></div>
+        <div class="cell"><span class="date">25</span></div>
+        <div class="cell"><span class="date">26</span><div class="pill"><a class="badge practice" href="#2025-09-26">Practice</a></div></div>
+        <div class="cell"><span class="date">27</span><div class="pill"><a class="badge game" href="#2025-09-27">Game</a></div></div>
+        <div class="cell"><span class="date">28</span></div>
+        <div class="cell"><span class="date">29</span></div>
+        <div class="cell"><span class="date">30</span></div>
+      </div>
+
+      <h2>October 2025</h2>
+      <div class="cal">
+        <div class="head">Sun</div><div class="head">Mon</div><div class="head">Tue</div><div class="head">Wed</div><div class="head">Thu</div><div class="head">Fri</div><div class="head">Sat</div>
+        <div class="cell"></div><div class="cell"></div><div class="cell"></div>
+        <div class="cell"><span class="date">1</span></div>
+        <div class="cell"><span class="date">2</span></div>
+        <div class="cell"><span class="date">3</span><div class="pill"><a class="badge practice" href="#2025-10-03">Practice</a></div></div>
+        <div class="cell"><span class="date">4</span><div class="pill"><a class="badge game" href="#2025-10-04">Game</a></div></div>
+        <div class="cell"><span class="date">5</span></div>
+        <div class="cell"><span class="date">6</span><div class="note">Fall Break (No Practice/Game)</div></div>
+        <div class="cell"><span class="date">7</span></div>
+        <div class="cell"><span class="date">8</span></div>
+        <div class="cell"><span class="date">9</span></div>
+        <div class="cell"><span class="date">10</span></div>
+        <div class="cell"><span class="date">11</span></div>
+        <div class="cell"><span class="date">12</span></div>
+        <div class="cell"><span class="date">13</span></div>
+        <div class="cell"><span class="date">14</span></div>
+        <div class="cell"><span class="date">15</span></div>
+        <div class="cell"><span class="date">16</span></div>
+        <div class="cell"><span class="date">17</span><div class="pill"><a class="badge practice" href="#2025-10-17">Practice</a></div></div>
+        <div class="cell"><span class="date">18</span><div class="pill"><a class="badge game" href="#2025-10-18">Game</a></div></div>
+        <div class="cell"><span class="date">19</span></div>
+        <div class="cell"><span class="date">20</span></div>
+        <div class="cell"><span class="date">21</span></div>
+        <div class="cell"><span class="date">22</span></div>
+        <div class="cell"><span class="date">23</span></div>
+        <div class="cell"><span class="date">24</span><div class="pill"><a class="badge practice" href="#2025-10-24">Practice</a></div></div>
+        <div class="cell"><span class="date">25</span><div class="pill"><a class="badge game" href="#2025-10-25">Game</a></div></div>
+        <div class="cell"><span class="date">26</span></div>
+        <div class="cell"><span class="date">27</span></div>
+        <div class="cell"><span class="date">28</span></div>
+        <div class="cell"><span class="date">29</span></div>
+        <div class="cell"><span class="date">30</span></div>
+        <div class="cell"><span class="date">31</span><div class="pill"><a class="badge practice" href="#2025-10-31">Practice</a></div></div>
+      </div>
+
+      <h2>November 2025</h2>
+      <div class="cal">
+        <div class="head">Sun</div><div class="head">Mon</div><div class="head">Tue</div><div class="head">Wed</div><div class="head">Thu</div><div class="head">Fri</div><div class="head">Sat</div>
+        <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+        <div class="cell"><span class="date">1</span><div class="pill"><a class="badge game" href="#2025-11-01">Game</a></div></div>
+        <div class="cell"><span class="date">2</span></div>
+        <div class="cell"><span class="date">3</span></div>
+        <div class="cell"><span class="date">4</span></div>
+        <div class="cell"><span class="date">5</span></div>
+        <div class="cell"><span class="date">6</span></div>
+        <div class="cell"><span class="date">7</span><div class="pill"><a class="badge practice" href="#2025-11-07">Practice</a></div></div>
+        <div class="cell"><span class="date">8</span><div class="pill"><a class="badge game" href="#2025-11-08">Game</a></div></div>
+        <div class="cell"><span class="date">9</span></div>
+        <div class="cell"><span class="date">10</span></div>
+        <div class="cell"><span class="date">11</span></div>
+        <div class="cell"><span class="date">12</span></div>
+        <div class="cell"><span class="date">13</span></div>
+        <div class="cell"><span class="date">14</span><div class="pill"><a class="badge practice" href="#2025-11-14">Practice</a></div></div>
+        <div class="cell"><span class="date">15</span><div class="pill"><a class="badge game" href="#2025-11-15">Game</a></div></div>
+        <div class="cell"><span class="date">16</span></div>
+        <div class="cell"><span class="date">17</span></div>
+        <div class="cell"><span class="date">18</span></div>
+        <div class="cell"><span class="date">19</span></div>
+        <div class="cell"><span class="date">20</span></div>
+        <div class="cell"><span class="date">21</span><div class="pill"><a class="badge practice" href="#2025-11-21">Practice</a></div></div>
+        <div class="cell"><span class="date">22</span><div class="pill"><a class="badge game" href="#2025-11-22">Game</a></div></div>
+        <div class="cell"><span class="date">23</span></div>
+        <div class="cell"><span class="date">24</span><div class="note">Thanksgiving Break (No Practice/Game)</div></div>
+        <div class="cell"><span class="date">25</span></div>
+        <div class="cell"><span class="date">26</span></div>
+        <div class="cell"><span class="date">27</span></div>
+        <div class="cell"><span class="date">28</span></div>
+        <div class="cell"><span class="date">29</span></div>
+        <div class="cell"><span class="date">30</span></div>
+      </div>
+
+      <h2>December 2025</h2>
+      <div class="cal">
+        <div class="head">Sun</div><div class="head">Mon</div><div class="head">Tue</div><div class="head">Wed</div><div class="head">Thu</div><div class="head">Fri</div><div class="head">Sat</div>
+        <div class="cell"></div>
+        <div class="cell"><span class="date">1</span></div>
+        <div class="cell"><span class="date">2</span></div>
+        <div class="cell"><span class="date">3</span></div>
+        <div class="cell"><span class="date">4</span></div>
+        <div class="cell"><span class="date">5</span><div class="pill"><a class="badge practice" href="#2025-12-05">Practice</a></div></div>
+        <div class="cell"><span class="date">6</span><div class="pill"><a class="badge game" href="#2025-12-06">Game</a></div></div>
+        <div class="cell"><span class="date">7</span></div>
+        <div class="cell"><span class="date">8</span></div>
+        <div class="cell"><span class="date">9</span></div>
+        <div class="cell"><span class="date">10</span></div>
+        <div class="cell"><span class="date">11</span></div>
+        <div class="cell"><span class="date">12</span></div>
+        <div class="cell"><span class="date">13</span></div>
+        <div class="cell"><span class="date">14</span></div>
+        <div class="cell"><span class="date">15</span></div>
+        <div class="cell"><span class="date">16</span></div>
+        <div class="cell"><span class="date">17</span></div>
+        <div class="cell"><span class="date">18</span></div>
+        <div class="cell"><span class="date">19</span></div>
+        <div class="cell"><span class="date">20</span></div>
+        <div class="cell"><span class="date">21</span></div>
+        <div class="cell"><span class="date">22</span></div>
+        <div class="cell"><span class="date">23</span></div>
+        <div class="cell"><span class="date">24</span></div>
+        <div class="cell"><span class="date">25</span></div>
+        <div class="cell"><span class="date">26</span></div>
+        <div class="cell"><span class="date">27</span></div>
+        <div class="cell"><span class="date">28</span></div>
+        <div class="cell"><span class="date">29</span></div>
+        <div class="cell"><span class="date">30</span></div>
+        <div class="cell"><span class="date">31</span></div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Photos (Google Drive folder embed) -->
+    <aside class="sidebar">
+      <h2>📸 Team Photos</h2>
+      <!-- Replace YOUR_DRIVE_FOLDER_ID_HERE with your folder ID -->
+      <iframe
+        class="photo-embed"
+        src="https://drive.google.com/embeddedfolderview?id=YOUR_DRIVE_FOLDER_ID_HERE#grid"
+        title="Season Photos"
+        loading="lazy"
+      ></iframe>
+      <div class="helper">Put photos in your shared Google Drive folder (Anyone with link: Viewer). Parents will see new pics here instantly.</div>
+
+      <div class="section" id="snacks">
+        <h2>Snacks & Volunteers</h2>
+        <p>Use the <em>Sign up here</em> link above to add your name. This page auto-shows snack names on game days.</p>
+        <!-- Keep the published tab embed so anyone can read it without signing in -->
+        <iframe id="snack-embed"
+          src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSm-KZm_RGYjzZOgsUQT1RKcXkdQAmNZ5mYFgo889tELt0jI9oTcwZMj4ifjBARaEhNmFuKEco2Yzwc/pubhtml?gid=0&single=true"
+          width="100%" height="420" frameborder="0"></iframe>
+      </div>
+    </aside>
+  </div>
+
+  <!-- PRACTICE & GAME DETAILS (unchanged content) -->
+  <div class="section"><h2>Practice & Game Details</h2>
+
+    <div class="card" id="2025-09-19"><h3><span class="small">[Practice]</span> Preseason Practice – Sept 19</h3><div class="small"><em>Focus: Meeting teammates, basic ball comfort</em></div><div><strong>Activities</strong><ul><li><strong>Warm-up: Animal Tag (5 min)</strong> — Run like animals while staying in the field box.</li><li><strong>Dribbling: Red Light/Green Light (8 min)</strong> — Dribble on green, stop on red, slow on yellow.</li><li><strong>Dribbling: Follow the Leader (8 min)</strong> — Copy coach turns, stops, and pace.</li><li><strong>Shooting: Monster in Goal (8 min)</strong> — Score past the silly monster coach.</li><li><strong>Scrimmage: 3v3 free play (10 min)</strong> — Small game—lots of touches.</li><li><strong>Cheer & stickers (2–3 min)</strong> — End happy and proud.</li></ul></div><div><strong>Required Equipment</strong><ul><li>Balls (1/player)</li><li>Cones</li><li>Goal</li></ul></div><div class="diagrams"></div></div>
+
+    <div class="card" id="2025-09-26"><h3><span class="small">[Practice]</span> Week 1 Practice – Sept 26 (Game Sept 27)</h3><div class="small"><em>Focus: Starting/stopping, control</em></div><div><strong>Activities</strong><ul><li><strong>Warm-up: Lava Islands (5 min)</strong> — Run/jump between cone 'islands'.</li><li><strong>Dribbling: Red Light/Green Light + Yellow (8 min)</strong> — Add slow 'yellow' speed control.</li><li><strong>Dribbling: Treasure Hunt (8 min)</strong> — Stop ball at each 'treasure' cone.</li><li><strong>Shooting: Cannon Fire (8 min)</strong> — Rapid shots into the goal.</li><li><strong>Scrimmage (10 min)</strong> — Let them play.</li><li><strong>Cheer (2 min)</strong> — Quick huddle and cheer.</li></ul></div><div><strong>Required Equipment</strong><ul><li>Balls</li><li>Cones</li><li>Goal</li></ul></div><div class="diagrams"></div></div>
+
+    <div class="card" id="2025-09-27"><h3><span class="small">[Game]</span> Game 1 – Sept 27</h3><div class="small"><em>Go have fun! Lots of subs and smiles.</em></div></div>
+
+    <div class="card" id="2025-10-03"><h3><span class="small">[Practice]</span> Week 2 Practice – Oct 3 (Game Oct 4)</h3><div class="small"><em>Focus: Awareness, keeping ball close</em></div><div><strong>Activities</strong><ul><li><strong>Warm-up: Freeze Tag (5 min)</strong> — Taggers freeze, teammates unfreeze.</li><li><strong>Dribbling: Sharks and Minnows (8 min)</strong> — Protect ball from sharks.</li><li><strong>Dribbling: Knock-the-Cone (8 min)</strong> — Dribble close and tap cones down.</li><li><strong>Shooting: Kick the Coach (8 min)</strong> — Pass/shot to coach's feet.</li><li><strong>Scrimmage (10 min)</strong> — Free play.</li><li><strong>Cheer (2 min)</strong> — Team chant.</li></ul></div><div><strong>Required Equipment</strong><ul><li>Balls</li><li>Cones</li><li>Goal</li></ul></div><div class="diagrams"></div></div>
+
+    <div class="card" id="2025-10-04"><h3><span class="small">[Game]</span> Game 2 – Oct 4</h3><div class="small"><em>Go have fun! Rotate often.</em></div></div>
+
+    <div class="card" id="2025-10-06"><h3><span class="small">[Break]</span> Fall Break (No Practice/Game)</h3><div class="small"><em>No activities Oct 6–12.</em></div></div>
+
+    <div class="card" id="2025-10-17"><h3><span class="small">[Practice]</span> Week 3 Practice – Oct 17 (Game Oct 18)</h3><div class="small"><em>Focus: Control in space, simple shooting</em></div><div><strong>Activities</strong><ul><li><strong>Warm-up: Animal Races (5 min)</strong> — Pick an animal and move like it.</li><li><strong>Dribbling: Treasure Hunt (8 min)</strong> — Stop ball at cones.</li><li><strong>Dribbling: Traffic Jam (8 min)</strong> — Control in a crowded grid.</li><li><strong>Shooting: Monster in Goal (8 min)</strong> — Score vs monster coach.</li><li><strong>Scrimmage (10 min)</strong> — Free play.</li><li><strong>Cheer (2 min)</strong> — Team chant.</li></ul></div><div><strong>Required Equipment</strong><ul><li>Balls</li><li>Cones</li><li>Goal</li></ul></div><div class="diagrams"></div></div>
+
+    <div class="card" id="2025-10-18"><h3><span class="small">[Game]</span> Game – Oct 18</h3><div class="small"><em>Go have fun!</em></div></div>
+
+    <div class="card" id="2025-10-24"><h3><span class="small">[Practice]</span> Week 4 Practice – Oct 24 (Game Oct 25)</h3><div class="small"><em>Focus: Intro to passing to a partner</em></div><div><strong>Activities</strong><ul><li><strong>Warm-up: Chase the Coach (5 min)</strong> — Tag the coach safely.</li><li><strong>Passing: Gate Passing (8 min)</strong> — Pass through cone gates.</li><li><strong>Passing: Kick the Coach (8 min)</strong> — Aim to coach's feet.</li><li><strong>Shooting: Cannon Fire (8 min)</strong> — Quick finishing.</li><li><strong>Scrimmage (10 min)</strong> — Free play.</li><li><strong>Cheer (2 min)</strong> — Team chant.</li></ul></div><div><strong>Required Equipment</strong><ul><li>Balls</li><li>Cones (for gates)</li><li>Goal</li></ul></div><div class="diagrams"></div></div>
+
+    <div class="card" id="2025-10-25"><h3><span class="small">[Game]</span> Game – Oct 25</h3><div class="small"><em>Go have fun!</em></div></div>
+
+    <div class="card" id="2025-10-31"><h3><span class="small">[Practice]</span> Week 5 Practice – Oct 31 (Game Nov 1) 🎃 Halloween Fun</h3><div class="small"><em>Focus: Dribbling, passing, and shooting with a Halloween twist</em></div><div><strong>Activities</strong><ul><li><strong>Pumpkin Patch Relay (5 min)</strong> — Each player dribbles their 'pumpkin' (ball) to a cone in the patch and back.</li><li><strong>Trick-or-Treat Houses (8 min)</strong> — Cones are 'houses.' Stop ball, shout 'Trick or treat!' then go to the next.</li><li><strong>Ghost Gates (8 min)</strong> — Pass through cone 'ghosts' to scare them away.</li><li><strong>Monster Knockdown (8 min)</strong> — Shoot to knock down 'monster' cones. Coach can be a silly zombie goalie.</li><li><strong>Costume Match Scrimmage (10 min)</strong> — Play as witches, bats, or pumpkins. Team 'pumpkins' vs 'bats' if using pinnies.</li><li><strong>'BOO!' Team Huddle (2 min)</strong> — Big 'BOO!' and Halloween sticker/glow stick.</li></ul></div><div><strong>Required Equipment</strong><ul><li>Balls (1/player)</li><li>Cones (houses, gates, monsters)</li><li>Goal</li><li>Optional Halloween props (pumpkin bucket, spider rings, glow sticks, silly hat)</li></ul></div><div class="diagrams"></div></div>
+
+    <div class="card" id="2025-11-01"><h3><span class="small">[Game]</span> Game – Nov 1</h3><div class="small"><em>Go have fun!</em></div></div>
+
+    <div class="card" id="2025-11-07"><h3><span class="small">[Practice]</span> Week 6 Practice – Nov 7 (Game Nov 8)</h3><div class="small"><em>Focus: Sharing the ball, cheering each other</em></div><div><strong>Activities</strong><ul><li><strong>Warm-up: Simon Says (5 min)</strong> — Listen and move with the ball.</li><li><strong>Dribbling: Traffic Jam (8 min)</strong> — Control in tight space.</li><li><strong>Passing: Partner Pass (8 min)</strong> — Short passes and move.</li><li><strong>Shooting: Team Cannon Fire (8 min)</strong> — Shoot in sequence, cheer teammates.</li><li><strong>Scrimmage (10 min)</strong> — Free play.</li><li><strong>Cheer (2 min)</strong> — Team chant.</li></ul></div><div><strong>Required Equipment</strong><ul><li>Balls</li><li>Cones</li><li>Goal</li><li>Pinnies (optional)</li></ul></div><div class="diagrams"></div></div>
+
+    <div class="card" id="2025-11-08"><h3><span class="small">[Game]</span> Game – Nov 8</h3><div class="small"><em>Go have fun!</em></div></div>
+
+    <div class="card" id="2025-11-14"><h3><span class="small">[Practice]</span> Week 7 Practice – Nov 14 (Game Nov 15)</h3><div class="small"><em>Focus: Repetition of favorites, mastery</em></div><div><strong>Activities</strong><ul><li><strong>Warm-up: Animal Tag (5 min)</strong> — Tag while moving like animals.</li><li><strong>Dribbling: Red Light/Green Light (8 min)</strong> — Control ball on stop/start.</li><li><strong>Passing: Gate Passing (8 min)</strong> — Simple accuracy.</li><li><strong>Shooting: Monster in Goal (8 min)</strong> — Score vs monster coach.</li><li><strong>Scrimmage (10 min)</strong> — Free play.</li><li><strong>Cheer (2 min)</strong> — Team chant.</li></ul></div><div><strong>Required Equipment</strong><ul><li>Balls</li><li>Cones</li><li>Goal</li></ul></div><div class="diagrams"></div></div>
+
+    <div class="card" id="2025-11-15"><h3><span class="small">[Game]</span> Game – Nov 15</h3><div class="small"><em>Go have fun!</em></div></div>
+
+    <div class="card" id="2025-11-21"><h3><span class="small">[Practice]</span> Week 8 Practice – Nov 21 (Game Nov 22)</h3><div class="small"><em>Focus: Fun & variety</em></div><div><strong>Activities</strong><ul><li><strong>Warm-up: Color Chaos (5 min)</strong> — Dribble to called colors.</li><li><strong>Dribbling: Treasure Hunt (8 min)</strong> — Stop at 'treasures'.</li><li><strong>Passing: Buddy Gates (8 min)</strong> — Work in pairs through gates.</li><li><strong>Shooting: Cannon Fire (8 min)</strong> — Quick finishing.</li><li><strong>Scrimmage: Mini World Cup (10 min)</strong> — Quick games with frequent subs.</li><li><strong>Cheer (2 min)</strong> — Team chant.</li></ul></div><div><strong>Required Equipment</strong><ul><li>Balls</li><li>Colored cones</li><li>Goal</li><li>Pinnies</li></ul></div><div class="diagrams"></div></div>
+
+    <div class="card" id="2025-11-22"><h3><span class="small">[Game]</span> Game – Nov 22</h3><div class="small"><em>Go have fun!</em></div></div>
+
+    <div class="card" id="2025-11-24"><h3><span class="small">[Break]</span> Thanksgiving Break (No Practice/Game)</h3><div class="small"><em>No activities Nov 24–30.</em></div></div>
+
+    <div class="card" id="2025-12-05"><h3><span class="small">[Practice]</span> Week 9 Practice – Dec 5 (Game Dec 6)</h3><div class="small"><em>Focus: Fun & favorites, end-of-season celebration</em></div><div><strong>Activities</strong><ul><li><strong>Warm-up: Silly Tag (5 min)</strong> — Laugh and move together.</li><li><strong>Dribbling: Kids’ Choice Drill (8 min)</strong> — Pick a favorite dribbling game.</li><li><strong>Passing: Kids’ Choice Drill (8 min)</strong> — Pick a favorite passing game.</li><li><strong>Shooting: Rapid Fire (8 min)</strong> — Everyone shoots quickly.</li><li><strong>Scrimmage: Parents vs Kids (10 min)</strong> — Kids always win 😄</li><li><strong>Awards & Cheer (3–5 min)</strong> — Stickers/medals & team chant.</li></ul></div><div><strong>Required Equipment</strong><ul><li>Balls</li><li>Cones</li><li>Goal</li><li>Awards (stickers, medals)</li></ul></div><div class="diagrams"></div></div>
+
+    <div class="card" id="2025-12-06"><h3><span class="small">[Game]</span> Game – Dec 6</h3><div class="small"><em>Final game — have a blast!</em></div></div>
+  </div>
+
+  <!-- LIVE SNACK IMPORT (Game days only) -->
+  <script>
+  // --- CSV endpoints ---
+  // 1) Published CSV for your public tab (works for anyone without sign-in)
+  const PUBLISHED_CSV_URL =
+    'https://docs.google.com/spreadsheets/d/e/2PACX-1vSm-KZm_RGYjzZOgsUQT1RKcXkdQAmNZ5mYFgo889tELt0jI9oTcwZMj4ifjBARaEhNmFuKEco2Yzwc/pub?gid=0&single=true&output=csv';
+  // 2) Editor-style CSV (works if the sheet is viewable to the public)
+  const EDITOR_CSV_URL =
+    'https://docs.google.com/spreadsheets/d/1lBwzSsPPwLKK5iAVljb9kOwr8EX5wlO8MJsrjKBTxIE/export?format=csv&gid=0';
+
+  // Build set of game ISO dates from the calendar: "YYYY-MM-DD"
+  function getGameDates(){
+    return new Set(
+      Array.from(document.querySelectorAll('.cal .badge.game[href^="#"]'))
+        .map(a => a.getAttribute('href').slice(1))
+    );
   }
-  if (field.length || row.length) { row.push(field); rows.push(row); }
-  return rows;
-}
 
-function isoFromMDY(s){
-  const m = String(s || '').trim().match(/^(\d{2})-(\d{2})-(\d{4})$/);
-  return m ? `${m[3]}-${m[1]}-${m[2]}` : null;
-}
+  // Simple CSV parser (handles quotes and commas)
+  function parseCSV(str){
+    const rows = []; let row = [], field = '', i = 0, inQ = false;
+    while (i < str.length){
+      const c = str[i++];
+      if (inQ){
+        if (c === '"'){ if (str[i] === '"'){ field += '"'; i++; } else { inQ = false; } }
+        else { field += c; }
+      } else {
+        if (c === '"') inQ = true;
+        else if (c === ','){ row.push(field); field=''; }
+        else if (c === '\n'){ row.push(field); rows.push(row); row=[]; field=''; }
+        else if (c !== '\r'){ field += c; }
+      }
+    }
+    if (field.length || row.length) { row.push(field); rows.push(row); }
+    return rows;
+  }
 
-function applySnacks(isoToSnack){
-  // Calendar cells (games only)
-  document.querySelectorAll('.cal .cell .badge.game[href^="#"]').forEach(a => {
-    const iso = a.getAttribute('href').slice(1);
-    const cell = a.closest('.cell');
-    cell.querySelectorAll('.snack').forEach(n => n.remove()); // clear old
-    const snack = (isoToSnack[iso] || '').trim();
-    if (!snack) return;
-    const line = document.createElement('div');
-    line.className = 'snack';
-    line.innerHTML = `<b>Snack:</b> ${snack}`;
-    cell.appendChild(line);
-  });
+  // Convert "MM-DD-YYYY" or "YYYY-MM-DD" -> "YYYY-MM-DD"
+  function toISO(s){
+    s = String(s||'').trim();
+    let m = s.match(/^(\d{2})-(\d{2})-(\d{4})$/); // MM-DD-YYYY
+    if (m) return `${m[3]}-${m[1]}-${m[2]}`;
+    m = s.match(/^(\d{4})-(\d{2})-(\d{2})$/);     // YYYY-MM-DD
+    if (m) return s;
+    return null; // anything else ignored (keeps code simple as requested)
+  }
 
-  // Detail cards (games only)
-  Object.entries(isoToSnack).forEach(([iso, snack]) => {
-    const card = document.getElementById(iso);
-    if (!card || !(snack || '').trim()) return;
-    card.querySelectorAll('.snack').forEach(n => n.remove());
-    const line = document.createElement('div');
-    line.className = 'snack';
-    line.innerHTML = `<b>Snack:</b> ${snack}`;
-    card.appendChild(line);
-  });
-}
+  function applySnacks(isoToSnack){
+    // Calendar cells (games only)
+    document.querySelectorAll('.cal .cell .badge.game[href^="#"]').forEach(a => {
+      const iso = a.getAttribute('href').slice(1);
+      const cell = a.closest('.cell');
+      // clear old lines
+      cell.querySelectorAll('.snack').forEach(n => n.remove());
+      const snack = (isoToSnack[iso] || '').trim();
+      if (!snack) return;
+      const line = document.createElement('div');
+      line.className = 'snack';
+      line.innerHTML = `<b>Snack:</b> ${snack}`;
+      cell.appendChild(line);
+    });
 
-async function loadSnacks(){
-  try{
-    const res = await fetch(CSV_URL + '&_=' + Date.now(), { cache: 'no-store' });
+    // Detail cards (games only)
+    Object.entries(isoToSnack).forEach(([iso, snack]) => {
+      const card = document.getElementById(iso);
+      if (!card || !(snack||'').trim()) return;
+      card.querySelectorAll('.snack').forEach(n => n.remove());
+      const line = document.createElement('div');
+      line.className = 'snack';
+      line.innerHTML = `<b>Snack:</b> ${snack}`;
+      card.appendChild(line);
+    });
+  }
+
+  async function fetchCSV(url){
+    const res = await fetch(url + (url.includes('?') ? '&' : '?') + '_=' + Date.now(), { cache:'no-store' });
     if (!res.ok) throw new Error('CSV fetch failed: ' + res.status);
-    const rows = parseCSV(await res.text());
+    return await res.text();
+  }
+
+  async function loadSnacks(){
+    const gameDates = getGameDates(); // set of ISO strings
+    if (!gameDates.size) return;
+
+    let csvText = null;
+    try { csvText = await fetchCSV(EDITOR_CSV_URL); }
+    catch { try { csvText = await fetchCSV(PUBLISHED_CSV_URL); } catch(e){ console.warn(e); } }
+    if (!csvText) return;
+
+    const rows = parseCSV(csvText);
     if (!rows.length) return;
 
-    // Expect headers like: Game #,Date,Snacks  (we only use Date & Snacks)
-    const headers = rows[0].map(h => String(h || '').trim().toLowerCase());
+    const headers = rows[0].map(h => String(h||'').trim().toLowerCase());
     const iDate   = headers.indexOf('date');
     const iSnacks = headers.indexOf('snacks');
     if (iDate === -1 || iSnacks === -1) return;
 
-    const gameDates = getGameDates(); // set of "YYYY-MM-DD"
     const isoToSnack = {};
-
     for (let r = 1; r < rows.length; r++){
       const row = rows[r]; if (!row || row.length < Math.max(iDate, iSnacks)+1) continue;
-      const iso = isoFromMDY(row[iDate]);
+      const iso = toISO(row[iDate]);
       const snack = (row[iSnacks] || '').trim();
       if (!iso || !snack) continue;
-      // Only keep if that date is a game day in your calendar
       if (gameDates.has(iso)) isoToSnack[iso] = snack;
     }
 
     applySnacks(isoToSnack);
-  }catch(e){
-    console.warn('Snack load error:', e);
   }
-}
 
-document.addEventListener('DOMContentLoaded', loadSnacks);
+  document.addEventListener('DOMContentLoaded', loadSnacks);
+  </script>
+  <!-- Lightbox overlay -->
+<div class="lightbox" id="lightbox" aria-modal="true" role="dialog">
+  <button class="lb-close" id="lbClose" aria-label="Close">✕</button>
+  <button class="lb-btn lb-prev" id="lbPrev" aria-label="Previous">‹</button>
+  <img id="lbImg" alt="">
+  <button class="lb-btn lb-next" id="lbNext" aria-label="Next">›</button>
+</div>
+
+<script>
+// Simple, dependency-free lightbox
+(function(){
+  const links = Array.from(document.querySelectorAll('a[data-gallery="team"]'));
+  if (!links.length) return;
+
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lbImg');
+  const btnPrev = document.getElementById('lbPrev');
+  const btnNext = document.getElementById('lbNext');
+  const btnClose = document.getElementById('lbClose');
+  let idx = 0;
+
+  function openAt(i){
+    idx = (i + links.length) % links.length;
+    lbImg.src = links[idx].getAttribute('href');
+    lb.classList.add('open');
+  }
+  function close(){ lb.classList.remove('open'); lbImg.src = ''; }
+  function next(){ openAt(idx + 1); }
+  function prev(){ openAt(idx - 1); }
+
+  links.forEach((a, i) => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      openAt(i);
+    });
+  });
+
+  btnClose.addEventListener('click', close);
+  btnNext.addEventListener('click', next);
+  btnPrev.addEventListener('click', prev);
+
+  // Close on backdrop click (but not when clicking the image or buttons)
+  lb.addEventListener('click', (e) => {
+    if (e.target === lb) close();
+  });
+
+  // Keyboard controls
+  document.addEventListener('keydown', (e) => {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') close();
+    else if (e.key === 'ArrowRight') next();
+    else if (e.key === 'ArrowLeft') prev();
+  });
+})();
 </script>
 
-
-</body></html>
+</body>
+</html>
