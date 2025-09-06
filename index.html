@@ -23,6 +23,7 @@
   a.practice { background:var(--practicebg); color:var(--practice); border-color:var(--practice); }
   a.game { background:var(--gamebg); color:var(--game); border-color:var(--game); }
   .note { color:var(--muted); font-size:12px; margin-top:28px; }
+
   .section { margin-top:24px; padding-top:6px; border-top:2px solid #eee; }
   .card { border:1px solid var(--border); border-radius:8px; padding:12px; margin:10px 0; background:#fff; }
   .card h3 { margin:0 0 6px 0; }
@@ -30,15 +31,18 @@
   .diagrams img { height:80px; margin-right:6px; border:1px solid var(--border); border-radius:4px; }
   ul { margin:6px 0 6px 18px; }
 
-  /* Snacks line */
+  /* Sidebar */
+  .sidebar { position: sticky; top: 12px; height: fit-content; }
+  .helper { font-size:12px; color:var(--muted); margin-top:6px; }
+
+  /* Snacks line (in calendar & cards) */
   .snack { margin-top:6px; font-size:12px; color:var(--practice); font-weight:600; }
   .snack b { color:#444; font-weight:600; margin-right:4px; }
 
-  /* Sidebar gallery */
+  /* Gallery */
   .gallery-grid { display:grid; grid-template-columns: repeat(3, 1fr); gap:6px; }
   @media (max-width: 960px){ .gallery-grid { grid-template-columns: repeat(4, 1fr); } }
   .gallery-grid img { width:100%; height:100px; object-fit:cover; border-radius:6px; border:1px solid var(--border); display:block; }
-  .helper { font-size:12px; color:var(--muted); margin-top:6px; }
 
   /* Lightbox */
   .lightbox { position:fixed; inset:0; background:rgba(0,0,0,0.8); display:none; align-items:center; justify-content:center; z-index:9999; }
@@ -49,7 +53,6 @@
   .lb-next { right:16px; }
   .lb-close { position:absolute; top:12px; right:12px; background:rgba(255,255,255,0.9); border:1px solid #ccc; border-radius:999px; width:36px; height:36px; display:grid; place-items:center; font-weight:bold; cursor:pointer; }
 </style>
-
 </head>
 
 <body>
@@ -212,30 +215,27 @@
       </div>
     </div>
 
-    <!-- RIGHT: Photos (Google Drive folder embed) -->
-   <aside class="sidebar">
-  <h2>📸 Team Photos</h2>
-  <div id="gallery" class="gallery-grid">
-    <div class="helper">Loading photos…</div>
-  </div>
-  <div class="helper">
-    Add images to <code>/photos</code> in your GitHub repo. The gallery updates automatically after you push.
+    <!-- RIGHT: Photos -->
+    <aside class="sidebar">
+      <h2>📸 Team Photos</h2>
+      <div id="gallery" class="gallery-grid">
+        <div class="helper">Loading photos…</div>
+      </div>
+      <div class="helper">Add images to <code>/photos</code> in your GitHub repo. The gallery updates after you push.</div>
+    </aside>
   </div>
 
-  <!-- (Optional) keep your Snacks section here -->
-  <!--
+  <!-- Snacks & Volunteers page (embedded) -->
   <div class="section" id="snacks">
     <h2>Snacks & Volunteers</h2>
-    <p>Use the <em>Sign up here</em> link above…</p>
-    <iframe id="snack-embed"
+    <p>Use the sign-up sheet below. Entries in the <b>Snacks</b> column will automatically appear on the calendar for game days.</p>
+    <p><a href="https://docs.google.com/spreadsheets/d/1lBwzSsPPwLKK5iAVljb9kOwr8EX5wlO8MJsrjKBTxIE/edit?usp=sharing" target="_blank" rel="noopener">Open the full Google Sheet ↗</a></p>
+    <iframe
       src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSm-KZm_RGYjzZOgsUQT1RKcXkdQAmNZ5mYFgo889tELt0jI9oTcwZMj4ifjBARaEhNmFuKEco2Yzwc/pubhtml?gid=0&single=true"
       width="100%" height="420" frameborder="0"></iframe>
   </div>
-  -->
-</aside>
 
-
-  <!-- PRACTICE & GAME DETAILS (unchanged content) -->
+  <!-- PRACTICE & GAME DETAILS -->
   <div class="section"><h2>Practice & Game Details</h2>
 
     <div class="card" id="2025-09-19"><h3><span class="small">[Practice]</span> Preseason Practice – Sept 19</h3><div class="small"><em>Focus: Meeting teammates, basic ball comfort</em></div><div><strong>Activities</strong><ul><li><strong>Warm-up: Animal Tag (5 min)</strong> — Run like animals while staying in the field box.</li><li><strong>Dribbling: Red Light/Green Light (8 min)</strong> — Dribble on green, stop on red, slow on yellow.</li><li><strong>Dribbling: Follow the Leader (8 min)</strong> — Copy coach turns, stops, and pace.</li><li><strong>Shooting: Monster in Goal (8 min)</strong> — Score past the silly monster coach.</li><li><strong>Scrimmage: 3v3 free play (10 min)</strong> — Small game—lots of touches.</li><li><strong>Cheer & stickers (2–3 min)</strong> — End happy and proud.</li></ul></div><div><strong>Required Equipment</strong><ul><li>Balls (1/player)</li><li>Cones</li><li>Goal</li></ul></div><div class="diagrams"></div></div>
@@ -281,13 +281,21 @@
     <div class="card" id="2025-12-06"><h3><span class="small">[Game]</span> Game – Dec 6</h3><div class="small"><em>Final game — have a blast!</em></div></div>
   </div>
 
+  <!-- Lightbox overlay (for gallery) -->
+  <div class="lightbox" id="lightbox" aria-modal="true" role="dialog">
+    <button class="lb-close" id="lbClose" aria-label="Close">✕</button>
+    <button class="lb-btn lb-prev" id="lbPrev" aria-label="Previous">‹</button>
+    <img id="lbImg" alt="">
+    <button class="lb-btn lb-next" id="lbNext" aria-label="Next">›</button>
+  </div>
+
   <!-- LIVE SNACK IMPORT (Game days only) -->
   <script>
   // --- CSV endpoints ---
-  // 1) Published CSV for your public tab (works for anyone without sign-in)
+  // Published CSV (works for anyone): requires "Publish to web"
   const PUBLISHED_CSV_URL =
     'https://docs.google.com/spreadsheets/d/e/2PACX-1vSm-KZm_RGYjzZOgsUQT1RKcXkdQAmNZ5mYFgo889tELt0jI9oTcwZMj4ifjBARaEhNmFuKEco2Yzwc/pub?gid=0&single=true&output=csv';
-  // 2) Editor-style CSV (works if the sheet is viewable to the public)
+  // Editor-style CSV (works if the sheet is public to web viewers)
   const EDITOR_CSV_URL =
     'https://docs.google.com/spreadsheets/d/1lBwzSsPPwLKK5iAVljb9kOwr8EX5wlO8MJsrjKBTxIE/export?format=csv&gid=0';
 
@@ -325,7 +333,7 @@
     if (m) return `${m[3]}-${m[1]}-${m[2]}`;
     m = s.match(/^(\d{4})-(\d{2})-(\d{2})$/);     // YYYY-MM-DD
     if (m) return s;
-    return null; // anything else ignored (keeps code simple as requested)
+    return null;
   }
 
   function applySnacks(isoToSnack){
@@ -376,7 +384,7 @@
     const headers = rows[0].map(h => String(h||'').trim().toLowerCase());
     const iDate   = headers.indexOf('date');
     const iSnacks = headers.indexOf('snacks');
-    if (iDate === -1 || iSnacks === -1) return;
+    if (iDate === -1 || iSnacks === -1) { console.warn('Missing Date or Snacks header'); return; }
 
     const isoToSnack = {};
     for (let r = 1; r < rows.length; r++){
@@ -392,212 +400,93 @@
 
   document.addEventListener('DOMContentLoaded', loadSnacks);
   </script>
-  <!-- Lightbox overlay -->
-<div class="lightbox" id="lightbox" aria-modal="true" role="dialog">
-  <button class="lb-close" id="lbClose" aria-label="Close">✕</button>
-  <button class="lb-btn lb-prev" id="lbPrev" aria-label="Previous">‹</button>
-  <img id="lbImg" alt="">
-  <button class="lb-btn lb-next" id="lbNext" aria-label="Next">›</button>
-</div>
-<!-- LIVE SNACK IMPORT (Game days only) -->
-<script>
-// 1) CSV endpoints
-const PUBLISHED_CSV_URL =
-  'https://docs.google.com/spreadsheets/d/e/2PACX-1vSm-KZm_RGYjzZOgsUQT1RKcXkdQAmNZ5mYFgo889tELt0jI9oTcwZMj4ifjBARaEhNmFuKEco2Yzwc/pub?gid=0&single=true&output=csv';
-const EDITOR_CSV_URL =
-  'https://docs.google.com/spreadsheets/d/1lBwzSsPPwLKK5iAVljb9kOwr8EX5wlO8MJsrjKBTxIE/export?format=csv&gid=0';
 
-// 2) Collect ISO dates of all games from the calendar (#YYYY-MM-DD)
-function getGameDates(){
-  return new Set(
-    Array.from(document.querySelectorAll('.cal .badge.game[href^="#"]'))
-      .map(a => a.getAttribute('href').slice(1))
-  );
-}
+  <!-- PHOTOS: GitHub gallery + lightbox -->
+  <script>
+  // ====== CONFIG: set these to your GitHub repo ======
+  const GH_OWNER  = 'mercerco';   // e.g. 'reneesarno'
+  const GH_REPO   = 'soccer-site';
+  const GH_BRANCH = 'main';
+  const PHOTOS_DIR = 'photos';
 
-// 3) Tiny CSV parser (supports quotes & commas)
-function parseCSV(str){
-  const rows = []; let row = [], field = '', i = 0, inQ = false;
-  while (i < str.length){
-    const c = str[i++];
-    if (inQ){
-      if (c === '"'){ if (str[i] === '"'){ field += '"'; i++; } else { inQ = false; } }
-      else { field += c; }
-    } else {
-      if (c === '"') inQ = true;
-      else if (c === ','){ row.push(field); field=''; }
-      else if (c === '\n'){ row.push(field); rows.push(row); row=[]; field=''; }
-      else if (c !== '\r'){ field += c; }
+  async function fetchPhotoUrls(){
+    const api = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${PHOTOS_DIR}?ref=${GH_BRANCH}`;
+    const res = await fetch(api, { headers: { 'Accept': 'application/vnd.github.v3+json' }});
+    if (!res.ok) throw new Error('GitHub API error ' + res.status);
+    const data = await res.json();
+    return data
+      .filter(item => item.type === 'file' && /\.(jpe?g|png|gif|webp|avif)$/i.test(item.name))
+      .sort((a,b) => a.name.localeCompare(b.name, undefined, { numeric:true, sensitivity:'base' }))
+      .map(item => item.download_url);
+  }
+
+  function buildPhotoGrid(urls){
+    const grid = document.getElementById('gallery');
+    grid.innerHTML = '';
+    urls.forEach(url => {
+      const a = document.createElement('a');
+      a.href = url;
+      a.setAttribute('data-gallery', 'team');
+      const img = document.createElement('img');
+      img.src = url;
+      img.alt = 'Team photo';
+      img.loading = 'lazy';
+      a.appendChild(img);
+      grid.appendChild(a);
+    });
+  }
+
+  function initLightbox(){
+    const links = Array.from(document.querySelectorAll('a[data-gallery="team"]'));
+    if (!links.length) return;
+
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lbImg');
+    const btnPrev = document.getElementById('lbPrev');
+    const btnNext = document.getElementById('lbNext');
+    const btnClose = document.getElementById('lbClose');
+    let idx = 0;
+
+    function openAt(i){
+      idx = (i + links.length) % links.length;
+      lbImg.src = links[idx].href;
+      lb.classList.add('open');
+    }
+    function close(){ lb.classList.remove('open'); lbImg.src = ''; }
+    function next(){ openAt(idx + 1); }
+    function prev(){ openAt(idx - 1); }
+
+    links.forEach((a, i) => a.addEventListener('click', e => { e.preventDefault(); openAt(i); }));
+    btnClose.addEventListener('click', close);
+    btnNext.addEventListener('click', next);
+    btnPrev.addEventListener('click', prev);
+    lb.addEventListener('click', e => { if (e.target === lb) close(); });
+    document.addEventListener('keydown', e => {
+      if (!lb.classList.contains('open')) return;
+      if (e.key === 'Escape') close();
+      else if (e.key === 'ArrowRight') next();
+      else if (e.key === 'ArrowLeft') prev();
+    });
+  }
+
+  async function loadGallery(){
+    const grid = document.getElementById('gallery');
+    try{
+      const urls = await fetchPhotoUrls();
+      if (!urls.length){
+        grid.innerHTML = '<div class="helper">No photos yet. Add images to <code>/photos</code> in your repo.</div>';
+        return;
+      }
+      buildPhotoGrid(urls);
+      initLightbox();
+    }catch(err){
+      grid.innerHTML = '<div class="helper">Couldn’t load photos. Make sure the repo is public and the folder exists.</div>';
+      console.warn(err);
     }
   }
-  if (field.length || row.length) { row.push(field); rows.push(row); }
-  return rows;
-}
 
-// 4) Accept MM-DD-YYYY or YYYY-MM-DD and return YYYY-MM-DD
-function toISO(s){
-  s = String(s||'').trim();
-  let m = s.match(/^(\d{2})-(\d{2})-(\d{4})$/); // MM-DD-YYYY
-  if (m) return `${m[3]}-${m[1]}-${m[2]}`;
-  m = s.match(/^(\d{4})-(\d{2})-(\d{2})$/);     // YYYY-MM-DD
-  if (m) return s;
-  return null;
-}
-
-// 5) Write “Snack: …” onto calendar game cells and matching detail cards
-function applySnacks(isoToSnack){
-  // Calendar cells
-  document.querySelectorAll('.cal .cell .badge.game[href^="#"]').forEach(a => {
-    const iso = a.getAttribute('href').slice(1);
-    const cell = a.closest('.cell');
-    cell.querySelectorAll('.snack').forEach(n => n.remove()); // clear old
-    const snack = (isoToSnack[iso] || '').trim();
-    if (!snack) return;
-    const line = document.createElement('div');
-    line.className = 'snack';
-    line.innerHTML = `<b>Snack:</b> ${snack}`;
-    cell.appendChild(line);
-  });
-
-  // Detail cards
-  Object.entries(isoToSnack).forEach(([iso, snack]) => {
-    const card = document.getElementById(iso);
-    if (!card || !(snack||'').trim()) return;
-    card.querySelectorAll('.snack').forEach(n => n.remove());
-    const line = document.createElement('div');
-    line.className = 'snack';
-    line.innerHTML = `<b>Snack:</b> ${snack}`;
-    card.appendChild(line);
-  });
-}
-
-// 6) Fetch helper (with cache-buster)
-async function fetchCSV(url){
-  const res = await fetch(url + (url.includes('?') ? '&' : '?') + '_=' + Date.now(), { cache:'no-store' });
-  if (!res.ok) throw new Error('CSV fetch failed: ' + res.status);
-  return await res.text();
-}
-
-// 7) Main
-async function loadSnacks(){
-  const gameDates = getGameDates();
-  if (!gameDates.size) return;
-
-  let csvText = null;
-  try { csvText = await fetchCSV(EDITOR_CSV_URL); }
-  catch { try { csvText = await fetchCSV(PUBLISHED_CSV_URL); } catch(e){ console.warn(e); } }
-  if (!csvText) return;
-
-  const rows = parseCSV(csvText);
-  if (!rows.length) return;
-
-  const headers = rows[0].map(h => String(h||'').trim().toLowerCase());
-  const iDate   = headers.indexOf('date');
-  const iSnacks = headers.indexOf('snacks');
-  if (iDate === -1 || iSnacks === -1) { console.warn('Missing Date or Snacks header'); return; }
-
-  const isoToSnack = {};
-  for (let r = 1; r < rows.length; r++){
-    const row = rows[r]; if (!row || row.length < Math.max(iDate, iSnacks)+1) continue;
-    const iso = toISO(row[iDate]);
-    const snack = (row[iSnacks] || '').trim();
-    if (!iso || !snack) continue;
-    if (gameDates.has(iso)) isoToSnack[iso] = snack;
-  }
-
-  applySnacks(isoToSnack);
-}
-
-document.addEventListener('DOMContentLoaded', loadSnacks);
-</script>
-
-<script>
-// ====== CONFIG: set these to your GitHub repo ======
-const GH_OWNER  = 'mercerco';  // e.g. 'reneesarno'
-const GH_REPO   = 'soccer-site';           // repo name
-const GH_BRANCH = 'main';                  // 'main' or 'master'
-const PHOTOS_DIR = 'photos';               // folder in repo
-
-// Fetch list of files in /photos via GitHub Contents API
-async function fetchPhotoUrls(){
-  const api = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${PHOTOS_DIR}?ref=${GH_BRANCH}`;
-  const res = await fetch(api, { headers: { 'Accept': 'application/vnd.github.v3+json' }});
-  if (!res.ok) throw new Error('GitHub API error ' + res.status);
-  const data = await res.json();
-  return data
-    .filter(item => item.type === 'file' && /\.(jpe?g|png|gif|webp|avif)$/i.test(item.name))
-    .sort((a,b) => a.name.localeCompare(b.name, undefined, { numeric:true, sensitivity:'base' }))
-    .map(item => item.download_url);
-}
-
-function buildPhotoGrid(urls){
-  const grid = document.getElementById('gallery');
-  grid.innerHTML = '';
-  urls.forEach(url => {
-    const a = document.createElement('a');
-    a.href = url;
-    a.setAttribute('data-gallery', 'team');
-    const img = document.createElement('img');
-    img.src = url;
-    img.alt = 'Team photo';
-    img.loading = 'lazy';
-    a.appendChild(img);
-    grid.appendChild(a);
-  });
-}
-
-// Lightbox wiring
-function initLightbox(){
-  const links = Array.from(document.querySelectorAll('a[data-gallery="team"]'));
-  if (!links.length) return;
-
-  const lb = document.getElementById('lightbox');
-  const lbImg = document.getElementById('lbImg');
-  const btnPrev = document.getElementById('lbPrev');
-  const btnNext = document.getElementById('lbNext');
-  const btnClose = document.getElementById('lbClose');
-  let idx = 0;
-
-  function openAt(i){
-    idx = (i + links.length) % links.length;
-    lbImg.src = links[idx].href;
-    lb.classList.add('open');
-  }
-  function close(){ lb.classList.remove('open'); lbImg.src = ''; }
-  function next(){ openAt(idx + 1); }
-  function prev(){ openAt(idx - 1); }
-
-  links.forEach((a, i) => a.addEventListener('click', e => { e.preventDefault(); openAt(i); }));
-  btnClose.addEventListener('click', close);
-  btnNext.addEventListener('click', next);
-  btnPrev.addEventListener('click', prev);
-  lb.addEventListener('click', e => { if (e.target === lb) close(); });
-  document.addEventListener('keydown', e => {
-    if (!lb.classList.contains('open')) return;
-    if (e.key === 'Escape') close();
-    else if (e.key === 'ArrowRight') next();
-    else if (e.key === 'ArrowLeft') prev();
-  });
-}
-
-async function loadGallery(){
-  const grid = document.getElementById('gallery');
-  try{
-    const urls = await fetchPhotoUrls();
-    if (!urls.length){
-      grid.innerHTML = '<div class="helper">No photos yet. Add images to <code>/photos</code> in your repo.</div>';
-      return;
-    }
-    buildPhotoGrid(urls);
-    initLightbox();
-  }catch(err){
-    grid.innerHTML = '<div class="helper">Couldn’t load photos. Make sure the repo is public and the folder exists.</div>';
-    console.warn(err);
-  }
-}
-
-document.addEventListener('DOMContentLoaded', loadGallery);
-</script>
+  document.addEventListener('DOMContentLoaded', loadGallery);
+  </script>
 
 </body>
 </html>
