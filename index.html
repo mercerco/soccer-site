@@ -215,13 +215,13 @@
       </div>
     </div>
 
-    <!-- RIGHT: Photos -->
+    <!-- RIGHT: pics -->
     <aside class="sidebar">
-      <h2>📸 Team Photos</h2>
+      <h2>📸 Team pics</h2>
       <div id="gallery" class="gallery-grid">
-        <div class="helper">Loading photos…</div>
+        <div class="helper">Loading pics…</div>
       </div>
-      <div class="helper">Add images to <code>/photos</code> in your GitHub repo. The gallery updates after you push.</div>
+      <div class="helper">Add images to <code>/pics</code> in your GitHub repo. The gallery updates after you push.</div>
     </aside>
   </div>
 
@@ -401,16 +401,16 @@
   document.addEventListener('DOMContentLoaded', loadSnacks);
   </script>
 
-  <!-- PHOTOS: GitHub gallery + lightbox -->
+  <!-- pics: GitHub gallery + lightbox -->
   <script>
   // ====== CONFIG: set these to your GitHub repo ======
   const GH_OWNER  = 'mercerco';   // e.g. 'reneesarno'
   const GH_REPO   = 'soccer-site';
   const GH_BRANCH = 'main';
-  const PHOTOS_DIR = 'photos';
+  const pics_DIR = 'pics';
 
   async function fetchPhotoUrls(){
-    const api = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${PHOTOS_DIR}?ref=${GH_BRANCH}`;
+    const api = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${pics_DIR}?ref=${GH_BRANCH}`;
     const res = await fetch(api, { headers: { 'Accept': 'application/vnd.github.v3+json' }});
     if (!res.ok) throw new Error('GitHub API error ' + res.status);
     const data = await res.json();
@@ -474,13 +474,13 @@
     try{
       const urls = await fetchPhotoUrls();
       if (!urls.length){
-        grid.innerHTML = '<div class="helper">No photos yet. Add images to <code>/photos</code> in your repo.</div>';
+        grid.innerHTML = '<div class="helper">No pics yet. Add images to <code>/pics</code> in your repo.</div>';
         return;
       }
       buildPhotoGrid(urls);
       initLightbox();
     }catch(err){
-      grid.innerHTML = '<div class="helper">Couldn’t load photos. Make sure the repo is public and the folder exists.</div>';
+      grid.innerHTML = '<div class="helper">Couldn’t load pics. Make sure the repo is public and the folder exists.</div>';
       console.warn(err);
     }
   }
